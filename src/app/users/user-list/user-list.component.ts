@@ -4,9 +4,12 @@ import { Component, OnInit } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatMenuTrigger } from '@angular/material/menu';
+import { MatDialog } from '@angular/material/dialog';
 
 import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
+import { UserEditComponent } from '../user-edit/user-edit.component';
 
 @Component({
   selector: 'app-user-list',
@@ -14,13 +17,20 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./user-list.component.scss'],
 })
 export class UserListComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'phone', 'actions'];
+  displayedColumns: string[] = [
+    'firstName',
+    'lastName',
+    'email',
+    'phone',
+    'actions',
+  ];
   dataSource = new MatTableDataSource<User>();
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('menuTrigger') menuTrigger: MatMenuTrigger;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, public dialog: MatDialog) {}
 
   async ngOnInit(): Promise<void> {
     this.dataSource.data = await this.userService.getUsers().toPromise();
@@ -33,5 +43,12 @@ export class UserListComponent implements OnInit, AfterViewInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  openUserDialog() {
+    const dialogRef = this.dialog.open(UserEditComponent, {
+      restoreFocus: false,
+    });
+    dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
   }
 }

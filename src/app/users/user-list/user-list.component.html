@@ -17,21 +17,26 @@
 
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
     <ng-container matColumnDef="firstName">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        matSortActive
+        disableClear
+      >
         First Name
       </mat-header-cell>
       <mat-cell *matCellDef="let user"> {{ user.firstName }} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="lastName">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
         Last Name
       </mat-header-cell>
       <mat-cell *matCellDef="let user"> {{ user.lastName }} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="email">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
         Email
       </mat-header-cell>
       <mat-cell *matCellDef="let user"> {{ user.email }} </mat-cell>
@@ -48,13 +53,13 @@
         <button
           mat-icon-button
           [matMenuTriggerFor]="menu"
+          #menuTrigger
           class="menu-button"
-          aria-label="Example icon button with a menu icon"
         >
           <mat-icon>menu</mat-icon>
         </button>
         <mat-menu #menu="matMenu" xPosition="before">
-          <button mat-menu-item>Edit User</button>
+          <button mat-menu-item (click)="openUserDialog()">Edit User</button>
           <button mat-menu-item>
             <span class="test">Delete User</span>
           </button>
