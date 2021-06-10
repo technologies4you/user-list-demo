@@ -9,16 +9,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root',
 })
 export class UserService {
-  private users: User[] = [];
   private usersUrl = 'api/users';
 
   constructor(private http: HttpClient) {}
 
-  getUsers(): User[] {
-    return this.users;
-  }
-
-  getUsers2(): Observable<User[]> {
+  getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.usersUrl).pipe(
       tap((data) => console.log(JSON.stringify(data))),
       catchError(this.handleError)

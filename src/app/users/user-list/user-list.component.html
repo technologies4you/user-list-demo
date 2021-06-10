@@ -1,14 +1,12 @@
 <div class="container">
-  <div class="filter-container">
-    <mat-form-field class="filter">
-      <input
-        matInput
-        type="text"
-        (keyup)="applyFilter($any($event.target).value)"
-        placeholder="Filter"
-      />
-    </mat-form-field>
-  </div>
+  <mat-form-field class="filter">
+    <input
+      matInput
+      type="text"
+      (keyup)="applyFilter($any($event.target).value)"
+      placeholder="Filter"
+    />
+  </mat-form-field>
 
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
     <ng-container matColumnDef="firstName">
@@ -37,7 +35,16 @@
       <mat-cell *matCellDef="let user"> {{ user.phone }} </mat-cell>
     </ng-container>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-header-row
+      sticky
+      *matHeaderRowDef="displayedColumns; sticky: true"
+    ></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
   </mat-table>
+
+  <mat-paginator
+    class="paginator"
+    [pageSizeOptions]="[10, 20, 50]"
+    showFirstLastButtons
+  ></mat-paginator>
 </div>
