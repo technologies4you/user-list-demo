@@ -3,10 +3,21 @@ $innerWidth: 75%;
 .container {
   // display: flex;
   padding: 5%;
-  // background-image: url(../../../assets/images/sky-background.jpg);
 
-  .filter {
+  .table-controls {
+    display: flex;
+    justify-content: space-between;
+    width: $innerWidth;
+  }
+
+  .filter-input {
     width: 250px;
+  }
+
+  .add-user-btn-container {
+    display: flex;
+    align-self: center;
+    height: 40px;
   }
 
   mat-table {
@@ -14,6 +25,20 @@ $innerWidth: 75%;
 
     mat-row {
       border-bottom: 0;
+    }
+
+    .mat-column-email {
+      flex-basis: 25%;
+    }
+
+    .mat-column-phone {
+      flex-grow: 1.5;
+    }
+
+    .mat-column-actions {
+      width: 100px;
+      max-width: 100px;
+      justify-content: center;
     }
   }
 

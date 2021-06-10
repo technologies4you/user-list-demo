@@ -14,7 +14,7 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./user-list.component.scss'],
 })
 export class UserListComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'phone'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'phone', 'actions'];
   dataSource = new MatTableDataSource<User>();
 
   @ViewChild(MatSort) sort: MatSort;
