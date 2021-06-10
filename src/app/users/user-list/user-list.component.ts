@@ -21,7 +21,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
     'firstName',
     'lastName',
     'email',
-    'phone',
+    'telephone',
     'actions',
   ];
   dataSource = new MatTableDataSource<User>();
@@ -46,7 +46,6 @@ export class UserListComponent implements OnInit, AfterViewInit {
   }
 
   openUserDialog(user?: any) {
-    console.log(user);
     const dialogRef = this.dialog.open(UserEditComponent, {
       restoreFocus: false,
       // height: '500px',
@@ -57,8 +56,12 @@ export class UserListComponent implements OnInit, AfterViewInit {
       },
     });
     // dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
-    dialogRef.componentInstance.submitClicked.subscribe((data) => {
-      console.log(data);
+    dialogRef.componentInstance.submitClicked.subscribe((data: User) => {
+      if (user) {
+        console.log(user);
+      } else {
+        console.log(data);
+      }
     });
   }
 }

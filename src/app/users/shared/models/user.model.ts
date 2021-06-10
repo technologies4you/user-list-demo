@@ -1,7 +1,9 @@
+import { Telephone } from './telephone.model';
+
 export interface User {
-  id: number;
+  id: number | null;
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
+  telephone: Telephone;
 }

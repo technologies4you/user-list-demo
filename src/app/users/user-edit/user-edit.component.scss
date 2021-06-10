@@ -7,8 +7,9 @@
     text-align: center;
   }
 
-  .content {
-    height: 100%;
+  .user-form {
+    display: flex;
+    flex-direction: column;
   }
 
   .actions {

@@ -42,9 +42,12 @@
       <mat-cell *matCellDef="let user"> {{ user.email }} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="phone">
+    <ng-container matColumnDef="telephone">
       <mat-header-cell *matHeaderCellDef> Phone </mat-header-cell>
-      <mat-cell *matCellDef="let user"> {{ user.phone }} </mat-cell>
+      <mat-cell *matCellDef="let user">
+        ({{ user.telephone?.area }}) {{ user.telephone?.exchange }} -
+        {{ user.telephone?.subscriber }}
+      </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="actions">

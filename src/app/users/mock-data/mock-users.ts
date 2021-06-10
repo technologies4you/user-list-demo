@@ -15,12 +15,16 @@ function createMockUsers(): User[] {
       .concat('.')
       .concat(lastName)
       .concat('@domain.testing');
-    const phone = `(${Math.floor(100 + Math.random() * 900)})`
-      .concat(' ')
-      .concat(Math.floor(100 + Math.random() * 900).toString())
-      .concat('-')
-      .concat(Math.floor(1000 + Math.random() * 9000).toString());
-    users.push({ id, firstName, lastName, email, phone });
+    const area = Math.floor(100 + Math.random() * 900).toString();
+    const exchange = Math.floor(100 + Math.random() * 900).toString();
+    const subscriber = Math.floor(1000 + Math.random() * 9000).toString();
+    users.push({
+      id,
+      firstName,
+      lastName,
+      email,
+      telephone: { area, exchange, subscriber },
+    });
   }
 
   return users;

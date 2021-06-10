@@ -1,24 +1,24 @@
 <div class="flex-container">
-  <mat-dialog-content class="content">
+  <mat-dialog-content>
     <h1 class="title">{{ dialogTitle }}</h1>
-    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-      <mat-form-field appearance="fill">
+    <form class="user-form" [formGroup]="userForm">
+      <mat-form-field appearance="outline">
         <mat-label>First Name</mat-label>
         <input matInput formControlName="firstName" required />
-        <mat-error *ngIf="firstName?.errors?.required">{{
+        <mat-error *ngIf="firstNameControl?.errors?.required">{{
           "Please enter a value"
         }}</mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="outline">
         <mat-label>Last Name</mat-label>
         <input matInput formControlName="lastName" required />
-        <mat-error *ngIf="lastName?.errors?.required">{{
+        <mat-error *ngIf="lastNameControl?.errors?.required">{{
           "Please enter a value"
         }}</mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
         <input
           matInput
@@ -27,25 +27,28 @@
           required
           email
         />
-        <mat-error *ngIf="email?.errors?.required">{{
+        <mat-error *ngIf="emailControl?.errors?.required">{{
           "Please enter a value"
         }}</mat-error>
-        <mat-error *ngIf="email?.errors?.email">{{
+        <mat-error *ngIf="emailControl?.errors?.email">{{
           "Not a valid email"
         }}</mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="outline">
         <mat-label>Phone</mat-label>
         <telephone-input formControlName="telephone" required></telephone-input>
-        <!-- <mat-icon matSuffix>phone</mat-icon> -->
         <mat-hint>Include area code</mat-hint>
       </mat-form-field>
     </form>
   </mat-dialog-content>
   <mat-dialog-actions class="actions">
     <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
-    <button type="submit" mat-stroked-button [disabled]="!userForm.valid">
+    <button
+      mat-stroked-button
+      [disabled]="!userForm.valid"
+      (click)="onSubmit()"
+    >
       Submit
     </button>
   </mat-dialog-actions>

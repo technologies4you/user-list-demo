@@ -1,7 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Telephone } from '../shared/models/telephone.model';
+import { User } from '../shared/models/user.model';
 
 @Component({
   selector: 'app-user-edit',
@@ -11,14 +12,21 @@ import { Telephone } from '../shared/models/telephone.model';
 export class UserEditComponent implements OnInit {
   dialogTitle: string;
   dialogText: string;
+  user: User = {
+    id: null,
+    firstName: '',
+    lastName: '',
+    email: '',
+    telephone: new Telephone('', '', ''),
+  };
 
-  @Output() submitClicked = new EventEmitter<any>();
+  @Output() submitClicked = new EventEmitter<User>();
 
   userForm: FormGroup = new FormGroup({
     firstName: new FormControl(''),
     lastName: new FormControl(''),
-    telephone: new FormControl(new Telephone('', '', '')),
     email: new FormControl(''),
+    telephone: new FormControl(new Telephone('', '', '')),
   });
 
   constructor(
@@ -28,28 +36,38 @@ export class UserEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.dialogTitle = this.data.dialogTitle;
-    console.log(this.data);
+    if (this.data.user) {
+      this.firstNameControl?.setValue(this.data.user.firstName);
+      this.lastNameControl?.setValue(this.data.user.lastName);
+      this.emailControl?.setValue(this.data.user.email);
+      this.telephoneControl?.setValue(this.data.user.telephone);
+    }
   }
 
-  get firstName() {
+  get firstNameControl() {
     return this.userForm.get('firstName');
   }
 
-  get lastName() {
+  get lastNameControl() {
     return this.userForm.get('lastName');
   }
 
-  get telephone() {
-    return this.userForm.get('telephone');
-  }
-
-  get email() {
+  get emailControl() {
     return this.userForm.get('email');
   }
 
+  get telephoneControl() {
+    return this.userForm.get('telephone');
+  }
+
   onSubmit() {
-    const data = 'Your data';
-    this.submitClicked.emit(data);
+    this.submitClicked.emit({
+      id: null,
+      firstName: this.userForm.value.firstName,
+      lastName: this.userForm.value.lastName,
+      email: this.userForm.value.email,
+      telephone: this.userForm.value.telephone,
+    });
     this.dialogRef.close();
   }
 
