@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { WelcomeComponent } from './welcome/welcome.component';
-import { MaterialModule } from './material.module';
 import { HeaderComponent } from './navigation/header/header.component';
 
 @NgModule({
@@ -15,7 +14,6 @@ import { HeaderComponent } from './navigation/header/header.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

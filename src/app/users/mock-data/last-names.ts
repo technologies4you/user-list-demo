@@ -1,0 +1,16 @@
+export const LAST_NAMES = [
+  'Anderson',
+  'Brown',
+  'Clark',
+  'Davis',
+  'Garcia',
+  'Hall',
+  'Jones',
+  'Lee',
+  'Miller',
+  'Newton',
+  'Perez',
+  'Robinson',
+  'Smith',
+  'Taylor',
+];
