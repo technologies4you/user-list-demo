@@ -1,4 +1,12 @@
-table {
+
+
+.container {
+  display: flex;
+  padding: 5%;
+}
+
+mat-table {
+  
   width: 100%;
 }
 

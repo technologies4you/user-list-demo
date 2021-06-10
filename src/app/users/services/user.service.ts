@@ -6,14 +6,11 @@ import { MOCK_USERS } from '../mock-data/mock-users';
   providedIn: 'root',
 })
 export class UserService {
-  private users: User[] = [];
+  private users: User[] = MOCK_USERS;
 
   constructor() {}
 
-  getUsers(useMockData: boolean = true): User[] {
-    if (useMockData) {
-      return MOCK_USERS;
-    }
-    return [];
+  getUsers(): User[] {
+    return this.users;
   }
 }
