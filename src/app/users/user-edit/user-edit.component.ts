@@ -12,13 +12,7 @@ import { User } from '../shared/models/user.model';
 export class UserEditComponent implements OnInit {
   dialogTitle: string;
   dialogText: string;
-  user: User = {
-    id: null,
-    firstName: '',
-    lastName: '',
-    email: '',
-    telephone: new Telephone('', '', ''),
-  };
+  userId: number | null = null;
 
   @Output() submitClicked = new EventEmitter<User>();
 
@@ -37,6 +31,7 @@ export class UserEditComponent implements OnInit {
   ngOnInit(): void {
     this.dialogTitle = this.data.dialogTitle;
     if (this.data.user) {
+      this.userId = this.data.user.id;
       this.firstNameControl?.setValue(this.data.user.firstName);
       this.lastNameControl?.setValue(this.data.user.lastName);
       this.emailControl?.setValue(this.data.user.email);
@@ -62,7 +57,7 @@ export class UserEditComponent implements OnInit {
 
   onSubmit() {
     this.submitClicked.emit({
-      id: null,
+      id: this.userId,
       firstName: this.userForm.value.firstName,
       lastName: this.userForm.value.lastName,
       email: this.userForm.value.email,

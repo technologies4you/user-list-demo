@@ -1,4 +1,4 @@
-import { AfterViewInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 
 import { MatSort } from '@angular/material/sort';
@@ -30,7 +30,11 @@ export class UserListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('menuTrigger') menuTrigger: MatMenuTrigger;
 
-  constructor(private userService: UserService, public dialog: MatDialog) {}
+  constructor(
+    private userService: UserService,
+    private changeDetectorRef: ChangeDetectorRef,
+    public dialog: MatDialog
+  ) {}
 
   async ngOnInit(): Promise<void> {
     this.dataSource.data = await this.userService.getUsers().toPromise();
@@ -48,7 +52,6 @@ export class UserListComponent implements OnInit, AfterViewInit {
   openUserDialog(user?: any) {
     const dialogRef = this.dialog.open(UserEditComponent, {
       restoreFocus: false,
-      // height: '500px',
       width: '400px',
       data: {
         dialogTitle: user ? 'Edit User' : 'Add User',
@@ -56,11 +59,30 @@ export class UserListComponent implements OnInit, AfterViewInit {
       },
     });
     // dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
-    dialogRef.componentInstance.submitClicked.subscribe((data: User) => {
+    dialogRef.componentInstance.submitClicked.subscribe(async (data: User) => {
       if (user) {
-        console.log(user);
+        await this.userService
+          .updateUser(data)
+          .toPromise()
+          .then(async (updatedUser) => {
+            // alert(
+            //   `Successfully updated user: ${updatedUser.lastName}, ${updatedUser.firstName}`
+            // );
+            this.dataSource.data = await this.userService
+              .getUsers()
+              .toPromise();
+            this.changeDetectorRef.detectChanges();
+          });
       } else {
-        console.log(data);
+        const result = await this.userService
+          .createUser(data)
+          .toPromise()
+          .then(async (newUser) => {
+            this.dataSource.data = await this.userService
+              .getUsers()
+              .toPromise();
+            this.changeDetectorRef.detectChanges();
+          });
       }
     });
   }
