@@ -7,7 +7,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { User } from '../models/user.model';
+import { User } from '../shared/models/user.model';
 import { UserService } from '../services/user.service';
 import { UserEditComponent } from '../user-edit/user-edit.component';
 
@@ -49,13 +49,16 @@ export class UserListComponent implements OnInit, AfterViewInit {
     console.log(user);
     const dialogRef = this.dialog.open(UserEditComponent, {
       restoreFocus: false,
-      height: '500px',
+      // height: '500px',
       width: '400px',
       data: {
-        dialogTitle: 'Testing 123',
+        dialogTitle: user ? 'Edit User' : 'Add User',
         user,
       },
     });
-    dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
+    // dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
+    dialogRef.componentInstance.submitClicked.subscribe((data) => {
+      console.log(data);
+    });
   }
 }

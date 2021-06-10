@@ -1,0 +1,17 @@
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .title {
+    text-align: center;
+  }
+
+  .content {
+    height: 100%;
+  }
+
+  .actions {
+    align-self: flex-end;
+  }
+}

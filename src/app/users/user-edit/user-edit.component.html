@@ -1,6 +1,52 @@
-<mat-dialog-content>
-  <h1>{{ dialogTitle }}</h1>
-</mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button mat-dialog-close>Submit</button>
-</mat-dialog-actions>
+<div class="flex-container">
+  <mat-dialog-content class="content">
+    <h1 class="title">{{ dialogTitle }}</h1>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="fill">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName" required />
+        <mat-error *ngIf="firstName?.errors?.required">{{
+          "Please enter a value"
+        }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName" required />
+        <mat-error *ngIf="lastName?.errors?.required">{{
+          "Please enter a value"
+        }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          placeholder="bob@test.com"
+          formControlName="email"
+          required
+          email
+        />
+        <mat-error *ngIf="email?.errors?.required">{{
+          "Please enter a value"
+        }}</mat-error>
+        <mat-error *ngIf="email?.errors?.email">{{
+          "Not a valid email"
+        }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Phone</mat-label>
+        <telephone-input formControlName="telephone" required></telephone-input>
+        <!-- <mat-icon matSuffix>phone</mat-icon> -->
+        <mat-hint>Include area code</mat-hint>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions class="actions">
+    <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+    <button type="submit" mat-stroked-button [disabled]="!userForm.valid">
+      Submit
+    </button>
+  </mat-dialog-actions>
+</div>

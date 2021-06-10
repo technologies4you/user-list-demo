@@ -1,4 +1,4 @@
-import { User } from '../models/user.model';
+import { User } from '../shared/models/user.model';
 import { FIRST_NAMES } from './first-names';
 import { LAST_NAMES } from './last-names';
 
