@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
@@ -45,9 +45,16 @@ export class UserListComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  openUserDialog() {
+  openUserDialog(user?: any) {
+    console.log(user);
     const dialogRef = this.dialog.open(UserEditComponent, {
       restoreFocus: false,
+      height: '500px',
+      width: '400px',
+      data: {
+        dialogTitle: 'Testing 123',
+        user,
+      },
     });
     dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
   }
