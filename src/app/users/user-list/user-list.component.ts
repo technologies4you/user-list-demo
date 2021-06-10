@@ -19,8 +19,8 @@ export class UserListComponent implements OnInit, AfterViewInit {
 
   constructor(private userService: UserService) {}
 
-  ngOnInit(): void {
-    this.dataSource.data = this.userService.getUsers();
+  async ngOnInit(): Promise<void> {
+    this.dataSource.data = await this.userService.getUsers2().toPromise();
   }
 
   ngAfterViewInit(): void {

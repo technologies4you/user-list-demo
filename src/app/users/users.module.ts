@@ -8,15 +8,11 @@ import { UserEditComponent } from './user-edit/user-edit.component';
 import { MaterialModule } from '../material.module';
 
 @NgModule({
-  declarations: [
-    UsersComponent,
-    UserListComponent,
-    UserEditComponent
-  ],
+  declarations: [UsersComponent, UserListComponent, UserEditComponent],
   imports: [
     CommonModule,
     UsersRoutingModule,
-    MaterialModule
-  ]
+    MaterialModule,
+  ],
 })
-export class UsersModule { }
+export class UsersModule {}

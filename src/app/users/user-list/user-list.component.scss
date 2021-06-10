@@ -1,15 +1,21 @@
-
-
 .container {
-  display: flex;
+  // display: flex;
   padding: 5%;
-}
+  // background-image: url(../../../assets/images/sky-background.jpg);
 
-mat-table {
-  
-  width: 100%;
-}
+  .filter {
+    width: 250px;
+  }
 
-th.mat-sort-header-sorted {
-  color: black;
+  mat-table {
+    width: 100%;
+
+    mat-row {
+      border-bottom: 0;
+    }
+  }
+
+  th.mat-sort-header-sorted {
+    color: black;
+  }
 }
