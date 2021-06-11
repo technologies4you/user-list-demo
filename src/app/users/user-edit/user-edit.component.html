@@ -46,7 +46,7 @@
     <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
     <button
       mat-stroked-button
-      [disabled]="!userForm.valid"
+      [disabled]="!userForm.valid || !telephoneControl?.value?.area"
       (click)="onSubmit()"
     >
       Submit
