@@ -26,7 +26,7 @@ import {
   MatFormFieldControl,
 } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
-import { Telephone } from '../models/telephone.model';
+import { Telephone } from '../../models/telephone.model';
 
 @Component({
   selector: 'telephone-input',
