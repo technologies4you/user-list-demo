@@ -51,3 +51,7 @@ $innerWidth: 75%;
     margin-top: 10px;
   }
 }
+
+::ng-deep .delete-btn {
+  color: red;
+}

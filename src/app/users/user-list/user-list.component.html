@@ -9,7 +9,7 @@
       />
     </mat-form-field>
     <div class="add-user-btn-container">
-      <button class="blue-button" mat-raised-button (click)="openUserDialog()">
+      <button class="blue-button" mat-raised-button (click)="openAddUserDialog()">
         Add User
       </button>
     </div>
@@ -62,10 +62,10 @@
           <mat-icon>menu</mat-icon>
         </button>
         <mat-menu #menu="matMenu" xPosition="before">
-          <button mat-menu-item (click)="openUserDialog(user)">
+          <button mat-menu-item (click)="openEditUserDialog(user)">
             Edit User
           </button>
-          <button mat-menu-item>
+          <button mat-menu-item class="delete-btn" (click)="deleteUser(user)">
             <span class="test">Delete User</span>
           </button>
         </mat-menu>

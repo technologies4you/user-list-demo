@@ -49,41 +49,63 @@ export class UserListComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  openUserDialog(user?: any) {
+  openAddUserDialog() {
     const dialogRef = this.dialog.open(UserEditComponent, {
       restoreFocus: false,
       width: '400px',
       data: {
-        dialogTitle: user ? 'Edit User' : 'Add User',
+        dialogTitle: 'Add User',
+      },
+    });
+
+    dialogRef.componentInstance.submitClicked.subscribe(
+      async (newUser: User) => {
+        await this.userService
+          .createUser(newUser)
+          .toPromise()
+          .then(async () => {
+            await this.updateTable();
+          });
+      }
+    );
+  }
+
+  openEditUserDialog(user: any) {
+    const dialogRef = this.dialog.open(UserEditComponent, {
+      restoreFocus: false,
+      width: '400px',
+      data: {
+        dialogTitle: 'Edit User',
         user,
       },
     });
-    // dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
-    dialogRef.componentInstance.submitClicked.subscribe(async (data: User) => {
-      if (user) {
+
+    dialogRef.componentInstance.submitClicked.subscribe(
+      async (updatedUser: User) => {
         await this.userService
-          .updateUser(data)
+          .updateUser(updatedUser)
           .toPromise()
-          .then(async (updatedUser) => {
+          .then(async () => {
             // alert(
             //   `Successfully updated user: ${updatedUser.lastName}, ${updatedUser.firstName}`
             // );
-            this.dataSource.data = await this.userService
-              .getUsers()
-              .toPromise();
-            this.changeDetectorRef.detectChanges();
-          });
-      } else {
-        const result = await this.userService
-          .createUser(data)
-          .toPromise()
-          .then(async (newUser) => {
-            this.dataSource.data = await this.userService
-              .getUsers()
-              .toPromise();
-            this.changeDetectorRef.detectChanges();
+            await this.updateTable();
           });
       }
-    });
+    );
+  }
+
+  async deleteUser(user: User) {
+    await this.userService
+      .deleteUser(user.id as number)
+      .toPromise()
+      .then(async () => {
+        await this.updateTable();
+      });
+  }
+
+  private async updateTable() {
+    this.dataSource.data = await this.userService.getUsers().toPromise();
+    this.changeDetectorRef.detectChanges();
   }
 }
