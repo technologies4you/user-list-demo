@@ -105,9 +105,21 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "user-list-demo"
+  "defaultProject": "user-list-demo",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
