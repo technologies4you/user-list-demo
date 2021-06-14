@@ -8,8 +8,23 @@
         placeholder="Filter"
       />
     </mat-form-field>
+    <div>
+      <select
+        class="form-control"
+        (change)="onSelected($any($event.target).value)"
+      >
+        <option value="">- Display All -</option>
+        <option *ngFor="let name of firstNames" [value]="name">
+          {{ name }}
+        </option>
+      </select>
+    </div>
     <div class="add-user-btn-container">
-      <button class="blue-button" mat-raised-button (click)="openAddUserDialog()">
+      <button
+        class="blue-button"
+        mat-raised-button
+        (click)="openAddUserDialog()"
+      >
         Add User
       </button>
     </div>
