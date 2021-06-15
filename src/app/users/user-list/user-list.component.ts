@@ -52,7 +52,7 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
   userFirstNameAction$ = this.userFirstNameSubject.asObservable();
 
   users$ = combineLatest([
-    this.userService.UsersAfterEdit$,
+    this.userService.UsersWithAdd$,
     this.userFirstNameAction$,
   ]).pipe(
     map(
