@@ -9,7 +9,7 @@ import {
   Subject,
   throwError,
 } from 'rxjs';
-import { tap, catchError, map, scan } from 'rxjs/operators';
+import { tap, catchError, map, scan, shareReplay } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
@@ -57,7 +57,8 @@ export class UserService {
 
   private usersWithAdd$ = merge(this.users$, this.userAddedAction$).pipe(
     tap(console.log),
-    scan((acc: User[], value: User) => [...acc, value])
+    scan((acc: User[], value: User) => [...acc, value]),
+    shareReplay(1)
   );
 
   public get UsersWithAdd$() {
